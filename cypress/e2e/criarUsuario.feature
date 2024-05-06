@@ -11,3 +11,54 @@ Cenário: Cadastro de usuário com sucesso
   Então o sistema deverá exibir a mensagem "Usuário salvo com sucesso!"
   E o usuário será registrado na lista
 
+Cenário: Não deve ser possível cadastrar um usuário sem informar um nome
+  Quando informar um novo e-mail
+  E confirmar a operação
+  Então o sistema deverá exibir o alerta "O campo nome é obrigatório."
+  E o cadastro não será concluído
+
+Cenário: Não deve ser possível cadastrar um usuário sem informar um e-mail
+  Quando informar um novo nome
+  E confirmar a operação
+  Então o sistema deverá exibir o alerta "O campo e-mail é obrigatório."
+  E o cadastro não será concluído
+
+Cenário: Não deve ser possível cadastrar um usuário sem informar um nome e um e-mail
+  Quando confirmar a operação
+  Então o sistema deverá exibir o alerta "O campo e-mail é obrigatório."
+  E o sistema deverá exibir o alerta "O campo nome é obrigatório."
+
+Esquema do Cenário: Não deve ser possível cadastrar um usuário com e-mail em formato inválido
+  Quando informar o nome "<nome>"
+  E informar o e-mail "<email>"
+  E confirmar a operação
+  Então o sistema deverá exibir o alerta "Formato de e-mail inválido"
+  E o cadastro não será concluído
+  Exemplos:
+    |     email      |  nome  |
+    | emailinvalido  |  Alana |
+    | email@invalido | Murilo |
+    |  invalido.com  |  Maria |
+    |     @.com      | Silvano|
+
+Cenário: Não permitir cadastro com nome com mais de 100 caracteres
+  Quando informar um nome com mais de 100 caracteres 
+  E informar um novo e-mail 
+  E confirmar a operação
+  Então o sistema deverá exibir o alerta "Informe no máximo 100 caracteres para o nome"
+  E o cadastro não será concluído
+
+Cenário: Não permitir cadastro com email com mais de 60 caracteres
+  Quando informar um novo nome 
+  E informar um e-mail com mais de 60 caracteres
+  E confirmar a operação
+  Então o sistema deverá exibir o alerta "Informe no máximo 60 caracteres para o e-mail"
+  E o cadastro não será concluído
+
+Cenário: Deve ocorrer erro quando o e-mail já estiver em uso 
+  Dado que existe um usuário cadastrado
+  Quando informar um novo nome 
+  E informar o mesmo e-mail
+  E confirmar a operação
+  Então o sistema deverá exibir o erro "Este e-mail já é utilizado por outro usuário."
+  E o cadastro não será concluído
