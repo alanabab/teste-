@@ -1,0 +1,44 @@
+[
+    {
+    "id": "339fd396-dddc-4383-9039-ecb076719c92",
+    "name": "Adolph",
+    "email": "dameon@gmail.com",
+    "createdAt": "2024-04-30T15:41:53.858Z",
+    "updatedAt": "2024-04-30T15:41:53.858Z"
+  },
+  {
+    "id": "f5db374c-28f8-4b86-a570-068b543baae7",
+    "name": "Abigail",
+    "email": "anieharvey@gmail.com",
+    "createdAt": "2024-04-30T15:42:08.687Z",
+    "updatedAt": "2024-04-30T15:42:08.687Z"
+  },
+  {
+    "id": "b80681b6-98b2-4a14-b07e-e2f59835396d",
+    "name": "Domenico",
+    "email": "lambert60@gmail.com",
+    "createdAt": "2024-04-30T15:43:06.475Z",
+    "updatedAt": "2024-04-30T15:43:06.475Z"
+  },
+  {
+    "id": "e34ffd2b-34a6-443c-aa6c-035f01b5e0b2",
+    "name": "Dorothy",
+    "email": "naomi9@yahoo.com",
+    "createdAt": "2024-04-30T15:44:42.943Z",
+    "updatedAt": "2024-04-30T15:44:42.943Z"
+  },
+  {
+    "id": "ce880d26-6b2f-4dd9-b986-af4b36293ebc",
+    "name": "Alexys",
+    "email": "olson91@hotmail.com",
+    "createdAt": "2024-04-30T15:45:54.957Z",
+    "updatedAt": "2024-04-30T15:45:54.957Z"
+  },
+  {
+    "id": "fadbc21c-e847-4540-9e07-1619541a41d0",
+    "name": "Elsie Bauch",
+    "email": "wanda66@yahoo.com",
+    "createdAt": "2024-04-30T15:46:21.268Z",
+    "updatedAt": "2024-04-30T15:46:21.268Z"
+  }
+]

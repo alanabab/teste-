@@ -3,6 +3,7 @@ export default class ListaUsuarioPage {
     paginacaoAtual = '#paginacaoAtual'; 
     buttonCadastreNovoUsuario = '.sc-bmzYkS.dmSxaj';
     buttonProximo = '#paginacaoProximo';
+    buttonVoltar = '#paginacaoVoltar';
     buttonDetalhes = '.sc-hzhJZQ';
     inputSearchBar = '.sc-gsFSXq.mUpIH';
     
@@ -18,6 +19,10 @@ export default class ListaUsuarioPage {
 
     clickButtonProximo() {
       cy.get(this.buttonProximo).click();
+    }
+
+    clickButtonVoltar() {
+      cy.get(this.buttonVoltar).click();
     }
 
     clickButtonDetalhes() {
@@ -42,6 +47,14 @@ export default class ListaUsuarioPage {
 
     getPaginacao() {
       return cy.get(this.paginacaoAtual);
+    }
+
+    getButtonProximo() {
+      return cy.get(this.buttonProximo);
+    }
+
+    getButtonVoltar() {
+      return cy.get(this.buttonVoltar);
     }
 
     typeSearchBar(input) {

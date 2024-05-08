@@ -23,3 +23,11 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('newUser', (name, email)=>{
+    cy.request(
+        'POST',
+        'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/users',
+        {name: name, email: email}
+      );
+ })
