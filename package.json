@@ -1,20 +1,22 @@
 {
-  "name": "atividade5-academy-alana-batista-de-almeida-barbosa",
+  "name": "atividade8-academy-alana-barbosa",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alana",
   "license": "ISC",
   "cypress-cucumber-preprocessor": {
-    "step_definitions": "cypress/support/steps"
+    "stepDefinitions": "cypress/support/steps/[filepart].step.js"
   },
   "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.5",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@faker-js/faker": "^8.4.1",
-    "cypress": "^13.8.1",
-    "cypress-cucumber-preprocessor": "^4.3.1"
+    "cypress": "^13.8.0",
+    "esbuild": "^0.20.2"
   },
   "description": ""
 }

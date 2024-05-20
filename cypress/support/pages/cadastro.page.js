@@ -1,44 +1,39 @@
 export default class CadastroPage {
-    inputName = '#name';
-    inputEmail = '#email';
-    buttonLimpar = '[data-test-id="clearButton"]';
-    buttonSalvar = 'button[type="submit"]';
-    buttonVoltar = '.sc-gEvEer.fGGZSe';
+  URL = "https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/register";
   
-    linkPaginaUsuarios = '[href="./usuarios.html"]';
-    linkPaginaSobre = '[href="./sobre.html"]';
-  
-    listaUsuarios = '#listaUsuarios'; 
+  inputNome = '[placeholder="Nome"]';
+  inputEmail = '[placeholder="E-mail"]';
+  inputSenha = '[placeholder="Senha"]';
+  inputConfirmarSenha = '[placeholder="Confirmar senha"]';
+  buttonCadastrar = '.account-save-button';
 
-    URL = "https://rarocrud-frontend-88984f6e4454.herokuapp.com/users/novo";
+  janela = '.modal-body';
+  alerta = '.input-error';
 
-    typeName(name) {
-      cy.get(this.inputName).type(name);
-    }
-  
-    typeEmail(email) {
-      cy.get(this.inputEmail).type(email);
-    }
-  
-    clickButtonSalvar() {
-      cy.get(this.buttonSalvar).click();
-    }
-  
-    clickButtonLimpar() {
-      cy.get(this.buttonLimpar).click();
-    }
-  
-    clickButtonVoltar() {
-      cy.get(this.buttonVoltar).click();
-    }
-
-    getUserList() {
-      return cy.get(this.listaUsuarios);
-    }
-  
-    cadastrar(name, email) {
-      this.typeName(name);
-      this.typeEmail(email);
-    }
+  typeNome(nome) {
+    cy.get(this.inputNome).type(nome);
   }
-  
+
+  typeEmail(email) {
+    cy.get(this.inputEmail).type(email);
+  }
+
+  typeSenha(senha) {
+    cy.get(this.inputSenha).type(senha);
+  }
+
+  typeConfirmarSenha(senha) {
+    cy.get(this.inputConfirmarSenha).type(senha);
+  }
+
+  clickButtonCadastrar() {
+    cy.get(this.buttonCadastrar).click();
+  }
+
+
+  cadastrar(nome, email) {
+    this.typeNome(nome);
+    this.typeEmail(email);
+    this.clickButtonCadastrar();
+  }
+}
