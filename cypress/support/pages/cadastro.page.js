@@ -30,10 +30,11 @@ export default class CadastroPage {
     cy.get(this.buttonCadastrar).click();
   }
 
-
-  cadastrar(nome, email) {
+  cadastrar(nome, email, senha) {
     this.typeNome(nome);
     this.typeEmail(email);
+    this.typeSenha(senha);
+    this.typeConfirmarSenha(senha);
     this.clickButtonCadastrar();
   }
 }
