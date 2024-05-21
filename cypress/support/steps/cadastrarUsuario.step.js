@@ -7,6 +7,7 @@ import { faker } from '@faker-js/faker';
 import CadastroPage from '../pages/cadastro.page';
 const paginaCadastro = new CadastroPage();
 
+
 Given('que acessei a funcionalidade de cadastro', function () {
   cy.visit(paginaCadastro.URL);
 });
@@ -64,7 +65,7 @@ When('informar um e-mail fora do padrão {string}', function (email) {
 When('informar o mesmo email usado pelo outro usuário', function () {
   cy.get('@emailEmUso').then((email) => { 
     paginaCadastro.typeEmail(email);   
-    });
+  });
 });
 
 When('informar nome, email, senha e confirmar operação corretamente', function () {
@@ -148,4 +149,23 @@ Then('o registro não será concluído', function () {
   });
   cy.get('@authUser').should('not.exist');
   cy.contains('Cadastro realizado!').should('not.exist');  
+});
+
+Then('o usuário será autenticado no sistema automaticamente', function () {
+  cy.wait('@postUser').then((intercept) => {
+    dados = intercept.response.body;
+    cy.wrap(dados.name).should('equal', this.nomeUser);
+    cy.wrap(dados.email).should('equal', this.emailUser);
+    expect(dados.type).to.deep.equal(0);
+    expect(dados).to.have.property('id');
+    expect(intercept.response.statusCode).to.equal(201);
+  });
+
+  cy.wait('@authUser').then((intercept) => {
+    expect(intercept.response.body).to.have.property('accessToken');
+    expect(intercept.response.statusCode).to.equal(200);
+  });
+
+  cy.get(paginaCadastro.barraNav).should('contain', 'Perfil');
+  cy.get(paginaCadastro.barraNav).should('not.contain', 'Login');
 });

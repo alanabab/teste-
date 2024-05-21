@@ -5,10 +5,13 @@ export default class CadastroPage {
   inputEmail = '[placeholder="E-mail"]';
   inputSenha = '[placeholder="Senha"]';
   inputConfirmarSenha = '[placeholder="Confirmar senha"]';
+  
   buttonCadastrar = '.account-save-button';
-
+  buttonOk = '.modal-actions';
+  
   janela = '.modal-body';
   alerta = '.input-error';
+  barraNav = '.navbar-content';
 
   typeNome(nome) {
     cy.get(this.inputNome).type(nome);
@@ -29,6 +32,10 @@ export default class CadastroPage {
   clickButtonCadastrar() {
     cy.get(this.buttonCadastrar).click();
   }
+
+  clickButtonOk() {
+    cy.get(this.buttonOk).click();
+  } 
 
   cadastrar(nome, email, senha) {
     this.typeNome(nome);

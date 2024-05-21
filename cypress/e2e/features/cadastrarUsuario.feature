@@ -111,3 +111,8 @@ Cenário: Todo usuário é criado com o tipo comum
   Quando informar nome, email, senha e confirmar operação corretamente
   Então visualizarei a mensagem de sucesso "Cadastro realizado!"
   E o usuário será cadastrado como tipo comum
+
+Cenário: Todo usuário é logado automaticamente após cadastro
+  Quando informar nome, email, senha e confirmar operação corretamente
+  Então visualizarei a mensagem de sucesso "Cadastro realizado!"
+  E o usuário será autenticado no sistema automaticamente
