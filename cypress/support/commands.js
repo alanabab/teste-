@@ -18,5 +18,13 @@ Cypress.Commands.add('newUser', (name, email, password) => {
         'POST',
         'https://raromdb-3c39614e42d4.herokuapp.com/api/users',
         {name, email, password}
-      );
- })
+    );
+});
+
+Cypress.Commands.add('login', (email, password) => {
+    cy.request(
+        'POST',
+        'https://raromdb-3c39614e42d4.herokuapp.com/api/auth/login',
+        {email, password}
+    );
+});

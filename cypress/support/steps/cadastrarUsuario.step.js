@@ -13,7 +13,7 @@ Given('que acessei a funcionalidade de cadastro', function () {
 });
 
 Given('que existe um usuário cadastrado', function () {
-  const emailNewUser = faker.string.alpha(12).toLowerCase() + "@qa.com";
+  const emailNewUser = faker.string.alpha(12) + "@qa.com";
   cy.wrap(emailNewUser).as('emailEmUso');
   cy.newUser('Alana', emailNewUser, 'ABCDEF');
 });
@@ -24,7 +24,7 @@ When('informar o nome {string}', function (nome) {
 });
 
 When('informar um e-mail', function () {
-  const email = faker.string.alpha(12).toLowerCase() + "@qa.com";
+  const email = faker.string.alpha(12) + "@qa.com";
   paginaCadastro.typeEmail(email);
   cy.wrap(email).as('emailUser');
 });
@@ -71,7 +71,7 @@ When('informar o mesmo email usado pelo outro usuário', function () {
 When('informar nome, email, senha e confirmar operação corretamente', function () {
   const nome = faker.person.fullName();
   cy.wrap(nome).as('nomeUser');
-  const email = faker.string.alpha(12).toLowerCase() + "@qa.com";
+  const email = faker.string.alpha(12) + "@qa.com";
   cy.wrap(email).as('emailUser');
 
   cy.intercept("POST", "api/users").as('postUser');
@@ -102,6 +102,21 @@ Then('o usuário será cadastrado como tipo comum', function () {
   });
 });
 
+Then('visualizarei a mensagem de erro {string}', function (text) {
+  cy.get(paginaCadastro.janela).should('be.visible');
+  cy.get(paginaCadastro.janela).should('contain', 'Falha no cadastro.');
+  cy.get(paginaCadastro.janela).should('contain', text);
+});
+
+Then('o cadastro não será efetuado', function () {
+  cy.wait('@postUser').then((intercept) => {
+    expect(intercept.response.body.message[0]).to.equal("name must be shorter than or equal to 100 characters");
+    expect(intercept.response.statusCode).to.equal(400);
+  });
+  cy.get('@authUser').should('not.exist');
+  cy.contains('Cadastro realizado!').should('not.exist');  
+});
+
 Then('visualizarei o alerta {string}', function (text) {
   cy.get(paginaCadastro.alerta).should('be.visible');
   cy.get(paginaCadastro.alerta).invoke('text').should('equal', text);
@@ -125,12 +140,6 @@ Then('visualizarei o alerta de quantidade de caracteres {string}', function (tex
   cy.get(paginaCadastro.alerta).should('be.visible');
   cy.get(paginaCadastro.alerta).eq(0).invoke('text').should('equal', text);
   cy.get(paginaCadastro.alerta).eq(1).invoke('text').should('equal', text);
-});
-
-Then('visualizarei a mensagem de erro {string}', function (text) {
-  cy.get(paginaCadastro.janela).should('be.visible');
-  cy.get(paginaCadastro.janela).should('contain', 'Falha no cadastro.');
-  cy.get(paginaCadastro.janela).should('contain', text);
 });
 
 Then('a operação não será concluída', function () {

@@ -22,7 +22,18 @@ Esquema do Cenário: Deve ser possível cadastrar usuário informando qualquer t
   | 12345 |
   | #$*!% |
   | 😃🤪 |
-  | NomeComMaisDe100CaracteresNomeComMaisDe100CaracteresNomeComMaisDe100CaracteresNomeComMaisDe100Caracteres |
+
+Esquema do Cenário: Não é possível cadastrar usuário informando nome com mais de 100 dígitos
+  Quando informar o nome "<nome>"
+  E informar um e-mail
+  E informar uma senha
+  E informar a confirmação de senha
+  E confirmar a operação
+  Então visualizarei a mensagem de erro "Não foi possível cadastrar o usuário."
+  E o cadastro não será efetuado
+  Exemplos:
+  | nome  |
+  | NomeComMaisDe100DigitosNomeComMaisDe100DigitosNomeComMaisDe100DigitosNomeComMaisDe100DigitosNomeComMais |
 
 Cenário: Não deve ser possível cadastrar usuário sem informar um nome
   Quando informar um e-mail
