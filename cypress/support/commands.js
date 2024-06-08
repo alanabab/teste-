@@ -1,17 +1,16 @@
 import { faker } from "@faker-js/faker";
 const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com";
+
 let email;
 let password = faker.internet.password(6);
 let idNovoUsuario;
 let nome;
-let token;
-let movieBody;
 
 // Commands de Usuários
 Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
   cy.request({
     method: "POST",
-    url: "/api/users",
+    url: apiUrl + "/api/users",
     body: {
       name: name,
       email: emailValido,
@@ -24,7 +23,7 @@ Cypress.Commands.add("cadastrarUsuario", () => {
   return cy
     .request({
       method: "POST",
-      url: "/api/users",
+      url: apiUrl + "/api/users",
       body: {
         name: "faker " + faker.person.firstName(),
         email: faker.internet.email(),
@@ -49,7 +48,7 @@ Cypress.Commands.add("cadastrarUsuario", () => {
 Cypress.Commands.add("loginValido", (email, password) => {
   cy.request({
     method: "POST",
-    url: "/api/auth/login",
+    url: apiUrl + "/api/auth/login",
     body: {
       email: email,
       password: password,
@@ -60,7 +59,7 @@ Cypress.Commands.add("loginValido", (email, password) => {
 Cypress.Commands.add("promoverAdmin", (tokenid) => {
   cy.request({
     method: "PATCH",
-    url: "/api/users/admin",
+    url: apiUrl + "/api/users/admin",
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },
@@ -70,7 +69,7 @@ Cypress.Commands.add("promoverAdmin", (tokenid) => {
 Cypress.Commands.add("excluirUsuario", (userid, tokenid) => {
   cy.request({
     method: "DELETE",
-    url: "/api/users/" + userid,
+    url: apiUrl + "/api/users/" + userid,
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },
@@ -80,7 +79,7 @@ Cypress.Commands.add("excluirUsuario", (userid, tokenid) => {
 Cypress.Commands.add("promoverCritico", function (tokenid) {
   cy.request({
     method: "PATCH",
-    url: "api/users/apply",
+    url: apiUrl + "/api/users/apply",
     headers: {
       Authorization: `Bearer ${tokenid} `,
     },
@@ -91,7 +90,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
   return cy
     .request({
       method: "POST",
-      url: "/api/auth/login",
+      url: apiUrl + "/api/auth/login",
       body: {
         email: email,
         password: password,
@@ -102,7 +101,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
 
       cy.request({
         method: "PATCH",
-        url: "api/users/admin",
+        url: apiUrl + "/api/users/admin",
         auth: {
           bearer: token,
         },
@@ -111,39 +110,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
     .then(function () {
       cy.request({
         method: "DELETE",
-        url: `/api/users/${idNovoUsuario}`,
-        auth: {
-          bearer: token,
-        },
-      });
-    });
-});
-
-Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
-  return cy
-    .request({
-      method: "POST",
-      url: "/api/auth/login",
-      body: {
-        email: email,
-        password: password,
-      },
-    })
-    .then(function (resposta) {
-      token = resposta.body.accessToken;
-
-      cy.request({
-        method: "PATCH",
-        url: "api/users/admin",
-        auth: {
-          bearer: token,
-        },
-      });
-    })
-    .then(function () {
-      cy.request({
-        method: "DELETE",
-        url: `/api/users/${idNovoUsuario}`,
+        url: apiUrl + `/api/users/${idNovoUsuario}`,
         auth: {
           bearer: token,
         },
@@ -155,7 +122,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
 Cypress.Commands.add("deletarFilme", (idFilme, token) => {
   cy.request({
     method: "DELETE",
-    url: "api/movies/" + idFilme,
+    url: apiUrl + "/api/movies/" + idFilme,
     auth: {
       bearer: token,
     },
@@ -166,7 +133,7 @@ Cypress.Commands.add("criarFilme", (userToken) => {
   return cy
     .request({
       method: "POST",
-      url: "/api/movies",
+      url: apiUrl + "/api/movies",
       auth: {
         bearer: userToken,
       },
@@ -195,7 +162,7 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
     return cy
       .request({
         method: "POST",
-        url: "/api/auth/login",
+        url: apiUrl + "/api/auth/login",
         body: {
           email: email,
           password: password,
@@ -206,7 +173,7 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
 
         cy.request({
           method: "PATCH",
-          url: "/api/users/admin",
+          url: apiUrl + "/api/users/admin",
           auth: {
             bearer: token,
           },
@@ -215,7 +182,7 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
       .then(() => {
         cy.request({
           method: "POST",
-          url: "/api/movies",
+          url: apiUrl + "/api/movies",
           body: dadosFilme,
           headers: {
             Authorization: "Bearer " + token,
@@ -224,38 +191,3 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
       });
   });
 });
-
-Cypress.Commands.add("newMovie", (movieBody, token) => {
-  cy.request({
-    method: "POST",
-    url: "/api/movies",
-    body: {
-      title: movieBody.title,
-      genre: movieBody.genre,
-      description: movieBody.description,
-      durationInMinutes: movieBody.durationInMinutes,
-      releaseYear: movieBody.releaseYear,
-    },
-    auth: {
-      bearer: token,
-    },
-  });
-});
-
-// Cypress.Commands.add("updateMovie", (movieId, movieUpdate, token) => {
-//   cy.request({
-//     method: "PUT",
-//     url: "/api/movies/" + movieId,
-//     body: {
-//       title: movieUpdate.title,
-//       genre: movieUpdate.genre,
-//       description: movieUpdate.description,
-//       durationInMinutes: movieUpdate.durationInMinutes,
-//       releaseYear: movieUpdate.releaseYear,
-//     },
-//     auth: {
-//       bearer: token,
-//     },
-//   })
-// });
-

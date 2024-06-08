@@ -93,6 +93,12 @@ Esquema do Cenário: Validando possíveis falhas em senha e confirmação de sen
     | acsfe         | acsfe          | A senha deve ter pelo menos 6 dígitos. |
     | asdfgh        | 12644568       | As senhas devem ser iguais.            |
 
+Cenário: Não deve ser possível cadastrar usuário sem informar senha
+    Quando informo um nome válido
+    E informo um email válido
+    E clico para cadastrar
+    Então retorna mensagem informando que a senha deve ser preenchida
+
 @deleteUser
 Cenário: Deve ser possível criar usuário informando e-mail com 5 caracteres
     Quando informo um nome válido
@@ -117,6 +123,22 @@ Cenário: Não deve ser possível criar um usuário sem email
     E confirmo a senha
     E clico para cadastrar
     Então retorna mensagem informando que o email deve ser preenchido
+
+Cenário: Não deve ser possível criar um usuário informando nome com apenas espaços vazios
+    Quando informo um nome com apenas espaços vazios
+    E informo um email válido
+    E informo uma senha válida
+    E confirmo a senha
+    E clico para cadastrar
+    Então retorna mensagem informando que o nome deve ser preenchido
+
+Cenário: Não deve ser possível criar um usuário informando senha com apenas espaços vazios
+    Quando informo um nome válido
+    E informo um email válido
+    E informo uma senha com apenas espaços vazios
+    E confirmo a senha
+    E clico para cadastrar
+    Então retorna mensagem informando que a senha deve ser preenchida
 
 Esquema do Cenário: Não deve ser possível cadastrar com emails inválidos
     Quando informo um nome válido
