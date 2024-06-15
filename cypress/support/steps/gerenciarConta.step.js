@@ -111,13 +111,10 @@ When("informar um novo nome, uma nova senha e confirmá-la", function () {
   cy.wrap("Nome Atualizado").as("novoNome");
 });
 
-When(
-  "informar uma senha {string} diferente da confirmação {string}",
-  function (senha, confirmação) {
-    accountPage.typeSenha(senha);
-    accountPage.typeConfirmarSenha(confirmação);
-  }
-);
+When("informar uma senha {string} diferente da confirmação {string}", function (senha, confirmação) {
+  accountPage.typeSenha(senha);
+  accountPage.typeConfirmarSenha(confirmação);
+});
 
 When("informar espaços em branco na senha", function () {
   accountPage.typeSenha("       ");
@@ -176,13 +173,10 @@ Then("deve estar desabilitada a edição no campo Tipo de usuário", function ()
   accountPage.getTipoUsuario().should("be.disabled");
 });
 
-Then(
-  "devem estar desabilitados para a edição o campo Senha e Confirmar Senha",
-  function () {
-    accountPage.getSenha().should("be.disabled");
-    accountPage.getConfirmarSenha().should("be.disabled");
-  }
-);
+Then("devem estar desabilitados para a edição o campo Senha e Confirmar Senha", function () {
+  accountPage.getSenha().should("be.disabled");
+  accountPage.getConfirmarSenha().should("be.disabled");
+});
 
 Then("a alteração é cancelada", function () {
   accountPage.getSenha().should("be.disabled");
